@@ -1,0 +1,60 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.kotlin_version = '1.1.4-3'
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext{
+
+    moonmoon = [
+
+        compileSdkVersion : 25,
+        buildToolsVersion :'26.0.0',
+        applicationId : "com.example.ayush.moonmoon",
+        minSdkVersion : 15,
+        targetSdkVersion : 25,
+        versionCode : 1,
+        versionName : "0.1"
+
+    ]
+
+    supportVersion = '25.3.1'
+
+    supportDependecies = [
+
+        design         : "com.android.support:design:${supportVersion}",
+        cardView       : "com.android.support:cardview-v7:${supportVersion}",
+        appCompat      : "com.android.support:appcompat-v7:${supportVersion}",
+        support        : "com.android.support:support-v4:${supportVersion}"
+    ]
+
+    otherDependencies = [
+
+        mosby : "com.hannesdorfmann.mosby:mvp:2.0.1",
+        serviceBase : "com.google.android.gms:play-services-base:9.0.0",
+        map  : "com.google.android.gms:play-services-maps:9.0.2",
+        location : "com.google.android.gms:play-services-location:9.0.2"
+
+    ]
+
+}

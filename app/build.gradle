@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion moonmoon.compileSdkVersion
+    buildToolsVersion moonmoon.buildToolsVersion
+    defaultConfig {
+        applicationId moonmoon.applicationId
+        minSdkVersion moonmoon.minSdkVersion
+        targetSdkVersion moonmoon.targetSdkVersion
+        versionCode moonmoon.versionCode
+        versionName moonmoon.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile supportDependecies.appCompat
+    compile otherDependencies.serviceBase
+    compile otherDependencies.mosby
+    compile otherDependencies.map
+    compile otherDependencies.location
+
+    testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
+}
