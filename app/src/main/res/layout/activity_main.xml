@@ -5,11 +5,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.ayush.moonmoon.MainActivity">
 
-    <TextView
-        android:id="@+id/animatedTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_centerInParent="true"
-        android:textColor="@android:color/black" />
+    <com.example.ayush.moonmoon.RoundSeeker
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>
