@@ -6,6 +6,7 @@
     tools:context="com.example.ayush.moonmoon.MainActivity">
 
     <com.example.ayush.moonmoon.RoundSeeker
+        android:id="@+id/seeker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"/>

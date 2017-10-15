@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MoonMoon.iml" filepath="$PROJECT_DIR$/MoonMoon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RoundSeeker.iml" filepath="$PROJECT_DIR$/RoundSeeker.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/locationmodule/locationmodule.iml" filepath="$PROJECT_DIR$/locationmodule/locationmodule.iml" />
     </modules>
