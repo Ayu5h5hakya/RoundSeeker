@@ -5,9 +5,9 @@ package com.example.ayush.moonmoon
  */
 interface OnCircularSeekBarChangeListener {
 
-    fun onProgressChanged(circularSeeker : RoundSeeker, progress : Int, fromUser : Boolean)
+    fun onProgressChanged(circularSeeker : RoundSeekerView, progress : Int, fromUser : Boolean)
 
-    fun onStopTrackingTouch(circularSeeker: RoundSeeker)
+    fun onStopTrackingTouch(circularSeeker: RoundSeekerView)
 
-    fun onStartTrackingTouch(circularSeeker: RoundSeeker)
+    fun onStartTrackingTouch(circularSeeker: RoundSeekerView)
 }

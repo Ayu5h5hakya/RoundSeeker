@@ -1,158 +1,42 @@
 package com.example.ayush.moonmoon
 
 import android.content.Context
-import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
-import android.view.MotionEvent
-import android.view.View
-
+import android.view.LayoutInflater
+import android.widget.RelativeLayout
+import kotlinx.android.synthetic.main.layout_roundseeker.view.*
 
 /**
- * Created by ayush on 10/5/17.
+ * Created by Ayush on 10/19/2017.
  */
-class RoundSeeker : View {
 
-    constructor(context: Context) : this(context, null) {
-        init(null, 0)
+class RoundSeeker : RelativeLayout, RoundSeekerView.OnRoundSeekerChangeListener{
+
+    constructor(context: Context): this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0) {
+        initialize(context, attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0) {
-        init(attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int): super(context, attrs, defStyleAttr,defStyleRes)
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+
+        roundSeeker.setOnSeekBarChangedListener(this)
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttributeSet: Int) : super(context, attrs, defStyleAttributeSet) {
-        init(attrs, defStyleAttributeSet)
-    }
+    fun initialize(context: Context, attrs : AttributeSet?){
 
-    val DPTOPX_SCALE = resources.displayMetrics.density
-
-    val MIN_TOUCH_TARGET_DP = 48
-
-    lateinit var mCircleRectF: RectF
-
-    lateinit var mArcPaint: Paint
-    lateinit var mProgressPaint : Paint
-    lateinit var mPointerPaint: Paint
-    lateinit var mArcPath: Path
-    lateinit var mProgressPath : Path
-    lateinit var pathMeasure : PathMeasure
-
-    var mPointerPositionXY = FloatArray(2)
-    var delta: Float = 5f
-
-    fun init(attrs: AttributeSet?, defStyle: Int) {
-        val attrArray = context.obtainStyledAttributes(attrs, R.styleable.RoundSeeker, defStyle, 0)
-
-        initRects()
-        mArcPath = Path()
-        mProgressPath =Path()
-        initPaints()
-        updatePath()
-        attrArray.recycle()
-    }
-
-    private fun updatePath() {
-        calculatePointerPositionXY()
-        initPaths()
-    }
-
-    private fun initPaths() {
-
-//        mArcPath.addArc(mCircleRectF, 0f, 360f)
-        mProgressPath.addArc(mCircleRectF, 0f, delta)
-        pathMeasure.setPath(mProgressPath,false)
+        val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        layoutInflater.inflate(R.layout.layout_roundseeker, this)
 
     }
 
-    private fun calculatePointerPositionXY() {
-
-        pathMeasure = PathMeasure(mProgressPath, false)
+    override fun onSeekBarChanged(newAngle: Int) {
+        seekerAngle.text = newAngle.toString()
     }
 
-    fun initPaints() {
-
-        mArcPaint = Paint()
-        mArcPaint.isAntiAlias = true
-        mArcPaint.isDither = true
-        mArcPaint.color = Color.BLACK
-        mArcPaint.strokeWidth = 10f
-        mArcPaint.style = Paint.Style.STROKE
-        mArcPaint.strokeJoin = Paint.Join.ROUND
-        mArcPaint.strokeCap = Paint.Cap.ROUND
-
-        mProgressPaint = Paint()
-        mProgressPaint.isAntiAlias = true
-        mProgressPaint.isDither = true
-        mProgressPaint.color = Color.BLUE
-        mProgressPaint.strokeWidth = 10f
-        mProgressPaint.style = Paint.Style.STROKE
-        mProgressPaint.strokeJoin = Paint.Join.ROUND
-        mProgressPaint.strokeCap = Paint.Cap.ROUND
-
-
-        mPointerPaint = Paint()
-        mPointerPaint.color = Color.RED
-
-    }
-
-
-    fun initRects() {
-        mCircleRectF = RectF()
-        mCircleRectF.set(-300f, -300f, 300f, 300f)
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        canvas.translate(width / 2f, height / 2f)
-
-        canvas.drawPath(mArcPath, mArcPaint)
-        canvas.drawPath(mProgressPath, mProgressPaint)
-        pathMeasure.getPosTan(pathMeasure.length /2f, mPointerPositionXY, null)
-        Log.d("eeker",pathMeasure.length.toString())
-    }
-
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val height = View.getDefaultSize(suggestedMinimumHeight, heightMeasureSpec)
-        val width = View.getDefaultSize(suggestedMinimumWidth, widthMeasureSpec)
-        val min = Math.min(width, height)
-        setMeasuredDimension(min, min)
-    }
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-
-        val x = event.x - width / 2f
-        val y = event.y - height / 2f
-
-        val distanceX = x - mCircleRectF.centerX()
-        val distanceY = y - mCircleRectF.centerY()
-
-        val touchRadius = Math.sqrt(Math.pow(distanceX.toDouble(), 2.0) + Math.pow(distanceY.toDouble(), 2.0))
-
-        when (event.action) {
-
-            MotionEvent.ACTION_DOWN -> {
-                Log.d("roundSeeker", "pressed")
-            }
-
-            MotionEvent.ACTION_MOVE -> {
-                Log.d("roundSeeker", "moving")
-                updatePath()
-                increaseArc()
-            }
-
-            MotionEvent.ACTION_UP -> {
-                Log.d("roundSeeker", "unpressed")
-            }
-        }
-        return true
-    }
-
-    fun increaseArc() {
-
-        delta += 1f
-        invalidate()
-
-    }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="RoundSeeker">
+    <declare-styleable name="RoundSeekerView">
         <attr name="progress" format="integer"/>
         <attr name="max" format="integer"/>
         <attr name="move_outside_circle" format="boolean"/>
